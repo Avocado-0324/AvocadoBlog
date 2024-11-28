@@ -1,0 +1,72 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}关于我 - 阿波卡多{% endblock %}
+
+{% block header %}关于我{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card about-blog-card">
+            <div class="card-body text-center py-5">
+                <div class="d-flex justify-content-center mb-4">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                         style="width: 150px; height: 150px; background-color: var(--avocado-light); font-size: 80px;">
+                        😺
+                    </div>
+                </div>
+                
+                <h2 class="mb-4">{{ about_me.name }}</h2>
+                <p class="lead mb-4">{{ about_me.bio }}</p>
+
+                <div class="mb-4">
+                    <h5 class="text-muted mb-3">兴趣爱好</h5>
+                    <div class="d-flex justify-content-center gap-2">
+                        {% for interest in about_me.interests %}
+                            <span class="badge bg-success">{{ interest }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <h5 class="text-muted mb-3">联系方式</h5>
+                    {% if about_me.social_links.github %}
+                        <a href="{{ about_me.social_links.github }}" 
+                           class="btn btn-outline-dark btn-sm me-2" 
+                           target="_blank">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                    {% endif %}
+                    {% if about_me.social_links.email %}
+                        <a href="mailto:{{ about_me.social_links.email }}" 
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-envelope"></i> Email
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- 博客统计 -->
+        <div class="card about-blog-card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-4">博客统计</h5>
+                <div class="row text-center">
+                    <div class="col-4">
+                        <h3>{{ view.get_queryset.count }}</h3>
+                        <p class="text-muted">文章</p>
+                    </div>
+                    <div class="col-4">
+                        <h3>{{ categories.count }}</h3>
+                        <p class="text-muted">分类</p>
+                    </div>
+                    <div class="col-4">
+                        <h3>{{ comments.count }}</h3>
+                        <p class="text-muted">评论</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

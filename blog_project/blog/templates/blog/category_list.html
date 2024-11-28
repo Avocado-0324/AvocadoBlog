@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}文章分类{% endblock %}
+
+{% block header %}文章分类{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            {% if categories %}
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for category in categories %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title h5 mb-3">
+                                    <i class="bi bi-folder text-primary me-2"></i>
+                                    {{ category.name }}
+                                </h3>
+                                <p class="card-text text-muted">
+                                    <small>
+                                        <i class="bi bi-file-text"></i> 
+                                        文章数量: {{ category.posts.count }}
+                                    </small>
+                                </p>
+                                <a href="{% url 'blog:category_detail' category.slug %}" 
+                                   class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-eye"></i> 查看文章
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> 暂无分类
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- 侧边栏 -->
+        <div class="col-md-4">
+            <div class="card shadow-sm about-blog-card">
+                <div class="card-header">
+                    <i class="bi bi-info-circle"></i> 关于博客
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        这是我的个人博客，用于记录学习和生活的点点滴滴。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

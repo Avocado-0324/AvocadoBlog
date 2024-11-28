@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}我是阿波卡多{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 自定义CSS -->
+    <style>
+        :root {
+            --avocado-green: #2ecc71;     /* 导航栏主色 */
+            --avocado-dark: #27ae60;      /* 导航栏悬停色 */
+            --avocado-light: #a8e6cf;     /* 浅色强调 */
+            --text-gray: #4a5568;         /* 文字颜色 */
+            --border-color: #edf2f7;      /* 边框颜色 */
+            --bg-light: #f8fff9;          /* 背景浅色 */
+        }
+
+        body {
+            background-color: var(--bg-light);
+        }
+
+        .navbar {
+            background-color: var(--avocado-green) !important;
+            margin-bottom: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+        .navbar-dark .navbar-brand,
+        .navbar-dark .nav-link {
+            color: white !important;
+        }
+
+        .navbar-dark .nav-link:hover {
+            color: var(--avocado-light) !important;
+        }
+
+        .blog-header {
+            background: #f8f9fa;  /* 柔和的灰色背景 */
+            color: var(--text-gray);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,.03);  /* 更柔和的阴影 */
+            border-bottom: 1px solid rgba(0,0,0,.05);
+            position: relative;
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;  /* 稍微加粗一点 */
+            color: var(--text-gray);
+        }
+
+        .blog-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;  /* 增加一点对比度 */
+            font-weight: 300;
+            color: var(--text-gray);
+        }
+
+        .article-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;  /* 更圆润的边角 */
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 4px rgba(0,0,0,.03);
+        }
+
+        .card {
+            border-color: #edf2f7;
+            border-radius: 12px;
+        }
+
+        .card-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #edf2f7;
+            border-radius: 12px 12px 0 0 !important;
+        }
+
+        .btn-outline-primary {
+            color: var(--avocado-green);
+            border-color: var(--avocado-green);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--avocado-green);
+            border-color: var(--avocado-green);
+            color: white;
+        }
+
+        .text-primary {
+            color: var(--avocado-green) !important;
+        }
+
+        .footer {
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background-color: #ffffff;
+            color: var(--text-gray);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer .avocado-icon {
+            color: var(--avocado-green);  /* 修改页脚图标颜色 */
+        }
+
+        /* 阿波卡多图标 */
+        .avocado-icon {
+            font-size: 1.8rem;
+            margin-right: 0.5rem;
+            color: #fff;
+        }
+
+        /* 分类卡片悬停效果 */
+        .card:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,.05);
+        }
+
+        /* 文章标题链接样式 */
+        .article-card h3 a {
+            color: var(--header-gray);
+            transition: color 0.2s ease;
+        }
+
+        .article-card h3 a:hover {
+            color: var(--avocado-green);
+            text-decoration: none;
+        }
+
+        .about-blog-card {
+            border: 1px solid #edf2f7;
+            background: white;
+        }
+
+        .about-blog-card .card-header {
+            background: var(--avocado-green);
+            color: white;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .about-blog-card .card-body {
+            background: white;
+        }
+
+        .about-blog-card .card-text {
+            color: var(--text-gray);
+        }
+
+        .badge.bg-success {
+            background-color: var(--avocado-green) !important;  /* 使用与导航栏相同的绿色 */
+        }
+
+        /* 可选：添加悬停效果 */
+        .badge {
+            transition: all 0.2s ease;
+        }
+
+        .badge:hover {
+            opacity: 0.9;
+        }
+
+        .comments-card {
+            border-color: var(--border-color);
+        }
+
+        .comments-card .card-header {
+            background: var(--avocado-green);
+            color: white;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 回复按钮样式 */
+        .reply-btn {
+            color: var(--avocado-green) !important;
+            text-decoration: none;
+            padding: 0;
+        }
+
+        .reply-btn:hover {
+            color: var(--avocado-dark) !important;
+            text-decoration: none;
+        }
+
+        /* 回复区域的左边框颜色 */
+        .replies-list .reply-item {
+            border-left-color: var(--avocado-green) !important;
+        }
+
+        /* 在style部分添加搜索框样式 */
+        .search-form {
+            margin-left: auto;
+        }
+
+        .search-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-input:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            box-shadow: none;
+        }
+
+        .search-btn {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog:post_list' %}">
+                <i class="bi bi-emoji-smile-fill avocado-icon"></i>
+                我是阿波卡多
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:post_list' %}">
+                            <i class="bi bi-house-door"></i> 首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:category_list' %}">
+                            <i class="bi bi-folder"></i> 分类
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:about' %}">
+                            <i class="bi bi-person"></i> 关于我
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- 搜索表单 -->
+                <form class="d-flex search-form ms-auto" action="{% url 'blog:post_list' %}" method="get">
+                    <div class="input-group">
+                        <input class="form-control search-input" type="search" name="q" 
+                               placeholder="搜索文章..." value="{{ query|default:'' }}"
+                               aria-label="Search">
+                        <button class="btn search-btn" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <header class="blog-header">
+        <div class="container text-center">
+            <h1 class="blog-title">{% block header %}我是阿波卡多{% endblock %}</h1>
+            <p class="blog-subtitle">记录生活，分享知识</p>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>
+                <i class="bi bi-emoji-smile-fill avocado-icon"></i>
+            </p>
+            <p>&copy; 2024 我是阿波卡多 | 记录生活，分享知识</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
