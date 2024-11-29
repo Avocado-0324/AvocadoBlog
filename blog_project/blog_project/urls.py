@@ -19,9 +19,9 @@ from django.urls import path
 from django.http import HttpResponse
 
 def home(request):
-    return HttpResponse("<h1>Hello, Django on Vercel!</h1>")
+    return HttpResponse("<h1>Hello from Avocado Blog!</h1>")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('admin/', admin.site.urls),
 ]
