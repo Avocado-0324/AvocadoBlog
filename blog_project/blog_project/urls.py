@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse
 
-def test_view(request):
-    return HttpResponse("Hello from Django on Vercel!")
+def home(request):
+    return HttpResponse("<h1>Hello, Django on Vercel!</h1>")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', test_view, name='test'),
+    path('', home, name='home'),
 ]

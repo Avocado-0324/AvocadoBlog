@@ -28,10 +28,11 @@ SECRET_KEY = 'django-insecure-toblk^cfyho^y@uep&qfs8&#l@1uintgf%b_yh%l$!=e&c=a9n
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.vercel.app',
-    'avocado-blog-aegfgsoc4-nqos-projects.vercel.app',
+    '*'
+ #   'localhost',
+ #    '127.0.0.1',
+ #  '.vercel.app',
+ #   'avocado-blog-aegfgsoc4-nqos-projects.vercel.app',
 ]
 
 
