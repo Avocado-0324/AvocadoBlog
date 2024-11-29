@@ -24,14 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-toblk^cfyho^y@uep&qfs8&#l@1uintgf%b_yh%l$!=e&c=a9n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '.vercel.app',
-    'avocado-blog.vercel.app',
-    'avocado-blog-7qj2bq7zw-nqos-projects.vercel.app'
+    'avocado-blog-aegfgsoc4-nqos-projects.vercel.app'
 ]
 
 
@@ -49,8 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 如果现在不需要处理静态文件，可以注释掉或删除下面这行
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / "staticfiles" / "static"
 # 如果现在不需要处理静态文件，可以注释掉或删除下面这行
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
