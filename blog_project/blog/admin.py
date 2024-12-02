@@ -1,12 +1,13 @@
 from django.contrib import admin
-from .models import Post, Category, Comment
+from .models import Post, Category, Comment, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'created_date', 'display_categories')
     list_filter = ('created_date', 'categories')
     search_fields = ('title', 'content')
-    filter_horizontal = ('categories',)
+    filter_horizontal = ('categories', 'tags')
+    fields = ['title', 'content', 'categories', 'tags', 'author']
 
     def display_categories(self, obj):
         """返回文章分类的列表显示"""
@@ -26,3 +27,8 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'post', 'content', 'created_date')
     list_filter = ('created_date', 'author')
     search_fields = ('content', 'author')
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)

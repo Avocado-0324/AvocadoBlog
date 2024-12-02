@@ -30,19 +30,27 @@
 
                 <div class="social-links">
                     <h5 class="text-muted mb-3">联系方式</h5>
-                    {% if about_me.social_links.github %}
-                        <a href="{{ about_me.social_links.github }}" 
-                           class="btn btn-outline-dark btn-sm me-2" 
-                           target="_blank">
-                            <i class="bi bi-github"></i> GitHub
-                        </a>
-                    {% endif %}
-                    {% if about_me.social_links.email %}
-                        <a href="mailto:{{ about_me.social_links.email }}" 
-                           class="btn btn-outline-primary btn-sm">
-                            <i class="bi bi-envelope"></i> Email
-                        </a>
-                    {% endif %}
+                    
+                    <!-- GitHub -->
+                    <a href="https://github.com/Avocado-0324" 
+                       class="btn btn-outline-dark btn-sm me-2" 
+                       target="_blank">
+                        <i class="bi bi-github"></i> GitHub
+                    </a>
+                    
+                    <!-- 微博 -->
+                    <a href="https://weibo.com/你的微博ID" 
+                       class="btn btn-outline-danger btn-sm me-2" 
+                       target="_blank">
+                        <i class="bi bi-sina-weibo"></i> 微博
+                    </a>
+                    
+                    <!-- Qiita -->
+                    <a href="https://qiita.com/Avocado0324" 
+                       class="btn btn-outline-success btn-sm me-2" 
+                       target="_blank">
+                        <i class="fab fa-qiita"></i> Qiita
+                    </a>
                 </div>
             </div>
         </div>
@@ -53,20 +61,50 @@
                 <h5 class="card-title mb-4">博客统计</h5>
                 <div class="row text-center">
                     <div class="col-4">
-                        <h3>{{ view.get_queryset.count }}</h3>
+                        <h3 class="stats-number">{% if posts_count %}{{ posts_count }}{% else %}0{% endif %}</h3>
                         <p class="text-muted">文章</p>
                     </div>
                     <div class="col-4">
-                        <h3>{{ categories.count }}</h3>
+                        <h3 class="stats-number">{% if categories_count %}{{ categories_count }}{% else %}0{% endif %}</h3>
                         <p class="text-muted">分类</p>
                     </div>
                     <div class="col-4">
-                        <h3>{{ comments.count }}</h3>
+                        <h3 class="stats-number">{% if comments_count %}{{ comments_count }}{% else %}0{% endif %}</h3>
                         <p class="text-muted">评论</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title mb-3">标签云</h5>
+        <div class="tags-cloud">
+            {% for tag in tags %}
+            <a href="#" 
+               class="tag-item"
+               style="font-size: {{ tag.posts_count }}px; color: #000;">
+                {{ tag.name }} <small>({{ tag.posts_count }})</small>
+            </a>
+            {% endfor %}
+        </div>
     </div>
 </div>
-{% endblock %} 
+
+<style>
+.tags-cloud {
+    padding: 10px;
+    line-height: 2;
+}
+
+.tag-item {
+    display: inline-block;
+    margin: 5px;
+    padding: 3px 10px;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+{% endblock %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.db import models
-from django.db.models import Count, Q
-from .models import Post, Category, Comment
+from django.db.models import Count, Q, Max
+from .models import Post, Category, Comment, Tag
 
 
 class PostListView(ListView):
@@ -96,3 +96,11 @@ class AboutView(TemplateView):
             }
         }
         return context 
+
+def about(request):
+    tags = Tag.objects.annotate(posts_count=Count('post')).filter(posts_count__gt=0)
+
+    context = {
+        'tags': tags,
+    }
+    return render(request, 'blog/about.html', context)
