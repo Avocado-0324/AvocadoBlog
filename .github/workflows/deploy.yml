@@ -17,8 +17,8 @@ jobs:
 
     - name: Deploy to EC2
       env:
-        HOST: ${{ 43.207.178.32 }}
-        USERNAME: ${{ ec2-user }}
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
       run: |
         # 使用SSH连接到EC2实例，禁用严格的主机密钥检查
         ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << 'EOF'
