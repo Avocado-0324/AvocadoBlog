@@ -26,6 +26,7 @@ class PostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('q', '')
+        context['categories'] = Category.objects.all()
         return context
 
 class PostDetailView(DetailView):
@@ -98,9 +99,42 @@ class AboutView(TemplateView):
         return context 
 
 def about(request):
-    tags = Tag.objects.annotate(posts_count=Count('post')).filter(posts_count__gt=0)
-
+    tags = Tag.objects.all()
+    print("视图中的标签：", [{'id': tag.id, 'name': tag.name} for tag in tags])
+    
     context = {
         'tags': tags,
+        'debug_info': {
+            'tags_count': tags.count(),
+            'tags_list': [tag.name for tag in tags]
+        }
     }
     return render(request, 'blog/about.html', context)
+
+class CategoryPostsView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        return Post.objects.filter(category__slug=self.kwargs['slug'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = Category.objects.get(slug=self.kwargs['slug'])
+        context['title'] = f'分类：{category.name}'
+        return context
+
+class TagPostsView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        return Post.objects.filter(tags__slug=self.kwargs['slug'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tag = Tag.objects.get(slug=self.kwargs['slug'])
+        context['title'] = f'标签：{tag.name}'
+        return context
